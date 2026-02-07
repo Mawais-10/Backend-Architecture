@@ -3,7 +3,8 @@ import express from "express";
 import cors from "cors"
 import cookieParser from "cookie-parser"
 // Correct imports
-import db from './database/index';
+// import "./database/index";
+
 import userRoutes from './routes/userRoutes';
 
 import { corsUrl, port } from "./config"

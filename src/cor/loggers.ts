@@ -17,7 +17,7 @@ if (!fs.existsSync(dir)) {
 }
 
 
-const loglevel = process.env.NODE_ENV === "production" ? "debug" : "warn"
+const loglevel = process.env.NODE_ENV === "production" ? "debug" : "info"
 
 
 const dailyRotateTransport = new transports.DailyRotateFile({
