@@ -1,12 +1,15 @@
 import express from "express";
 
 import cors from "cors"
-import "./database/index"
 import cookieParser from "cookie-parser"
-import userRoutes from "./routes/userRoutes"
+// Correct imports
+import db from './database/index';
+import userRoutes from './routes/userRoutes';
+
 import { corsUrl, port } from "./config"
 import todoRoutes from "./routes/todoRoutes"
 import { errorHandler } from "./middleware/errorMiddleware"
+import loggers from "./cor/loggers";
 
 const PORT = port ?? 8080
 
@@ -26,6 +29,7 @@ app.use(errorHandler)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
+  loggers.info(`Server is running on port ${PORT}`)
 })
 
 

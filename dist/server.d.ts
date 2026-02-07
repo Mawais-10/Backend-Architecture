@@ -1,2 +1,2 @@
-import "./database/index.js";
+import "./database/index";
 //# sourceMappingURL=server.d.ts.map

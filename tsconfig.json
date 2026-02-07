@@ -3,28 +3,33 @@
     /* Project Structure */
     "rootDir": "./src",
     "outDir": "dist",
-
     /* Language & Runtime */
-    "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "node",
-
+    "baseUrl": "src",
+    "paths": {
+      "*": [
+        "*"
+      ]
+    },
     /* Build Output */
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-
     /* Interop & Imports */
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-
     /* Type Safety */
     "strict": true,
     "skipLibCheck": true,
-
     /* Quality of Life */
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
