@@ -4,9 +4,17 @@ import generateToken from "../utils/generateToken"
 import type { AppRequest } from "../Types/app-req"
 import type { RequestHandler, Response } from "express"
 import type mongoose from "mongoose"
+import { userloginSchema } from "helper/validate.js"
 
 export const loginUser: RequestHandler = asyncHandler(async (req: AppRequest, res: Response) => {
   const { email, password } = req.body
+
+
+  const validatedData = userloginSchema.safeParse({ email, password })
+  if (!validatedData.success) {
+    res.status(400)
+    throw new Error(validatedData.error.message)
+  }
 
   const user = await User.findOne({ email })
 
