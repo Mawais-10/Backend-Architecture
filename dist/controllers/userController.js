@@ -1,11 +1,17 @@
-import User from "../models/userModel.js";
-import asyncHandler from "express-async-handler";
-import generateToken from "../utils/generateToken.js";
-const loginUser = asyncHandler(async (req, res) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.logoutUser = exports.registerUser = exports.loginUser = void 0;
+const userModel_1 = __importDefault(require("../models/userModel"));
+const express_async_handler_1 = __importDefault(require("express-async-handler"));
+const generateToken_1 = __importDefault(require("../utils/generateToken"));
+exports.loginUser = (0, express_async_handler_1.default)(async (req, res) => {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const user = await userModel_1.default.findOne({ email });
     if (user && (await user.matchPassword(password))) {
-        generateToken(res, user._id);
+        (0, generateToken_1.default)(res, user._id);
         res.json({
             _id: user._id,
             name: user.name,
@@ -17,16 +23,16 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new Error(" Invalid email or password");
     }
 });
-const registerUser = asyncHandler(async (req, res) => {
+exports.registerUser = (0, express_async_handler_1.default)(async (req, res) => {
     const { name, email, password } = req.body;
-    const userExists = await User.findOne({ email });
+    const userExists = await userModel_1.default.findOne({ email });
     if (userExists) {
         res.status(400);
         throw new Error("User already Exists");
     }
-    const user = await User.create({ name, email, password });
+    const user = await userModel_1.default.create({ name, email, password });
     if (user) {
-        generateToken(res, user._id);
+        (0, generateToken_1.default)(res, user._id);
         res.status(201);
         res.json({
             _id: user._id,
@@ -98,7 +104,7 @@ const registerUser = asyncHandler(async (req, res) => {
 //     isAdmin: user.isAdmin,
 //   })
 // })
-const logoutUser = asyncHandler(async (req, res) => {
+exports.logoutUser = (0, express_async_handler_1.default)(async (req, res) => {
     res.cookie("jwt", "", {
         httpOnly: true,
         expires: new Date(0),
@@ -107,5 +113,5 @@ const logoutUser = asyncHandler(async (req, res) => {
         message: "Logged Out Successfully",
     });
 });
-module.exports = { loginUser, registerUser, logoutUser };
+// module.exports = { loginUser, registerUser, logoutUser }
 //# sourceMappingURL=userController.js.map

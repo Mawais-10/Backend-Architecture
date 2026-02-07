@@ -1,9 +1,9 @@
 import asyncHandler from "express-async-handler"
-import Todo from "../models/todoModel.js"
-import type { AppRequest } from "../Types/app-req.js"
-import type { Response } from "express"
+import Todo from "../models/todoModel"
+import type { AppRequest } from "../Types/app-req"
+import type { RequestHandler, Response } from "express"
 
-const createTodo = asyncHandler(async (req: AppRequest, res: Response) => {
+export const createTodo: RequestHandler = asyncHandler(async (req: AppRequest, res: Response) => {
   const { title, description } = req.body
   console.log(req.user)
 
@@ -17,7 +17,7 @@ const createTodo = asyncHandler(async (req: AppRequest, res: Response) => {
   res.status(201).json({ title, description })
 })
 
-const getTodos = asyncHandler(async (req: AppRequest, res: Response) => {
+export const getTodos: RequestHandler = asyncHandler(async (req: AppRequest, res: Response) => {
   const user = req.user
   const todos = await Todo.find({
     user: user,
@@ -25,7 +25,7 @@ const getTodos = asyncHandler(async (req: AppRequest, res: Response) => {
   res.json(todos)
 })
 
-const editTodo = asyncHandler(async (req: AppRequest, res: Response) => {
+export const editTodo: RequestHandler = asyncHandler(async (req: AppRequest, res: Response) => {
   const { title, description, status } = req.body
 
   const user = req.user
@@ -58,7 +58,7 @@ const editTodo = asyncHandler(async (req: AppRequest, res: Response) => {
   res.json(updatedTodo)
 })
 
-const deleteTodo = asyncHandler(async (req, res) => {
+export const deleteTodo: RequestHandler = asyncHandler(async (req, res) => {
   const todo = await Todo.findById(req.params.id)
 
   if (todo) {
@@ -70,4 +70,4 @@ const deleteTodo = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { createTodo, getTodos, editTodo, deleteTodo }
+

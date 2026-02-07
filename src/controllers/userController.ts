@@ -1,11 +1,11 @@
-import User from "../models/userModel.js"
+import User from "../models/userModel"
 import asyncHandler from "express-async-handler"
-import generateToken from "../utils/generateToken.js"
-import type { AppRequest } from "../Types/app-req.js"
-import type { Response } from "express"
+import generateToken from "../utils/generateToken"
+import type { AppRequest } from "../Types/app-req"
+import type { RequestHandler, Response } from "express"
 import type mongoose from "mongoose"
 
-const loginUser = asyncHandler(async (req: AppRequest, res: Response) => {
+export const loginUser: RequestHandler = asyncHandler(async (req: AppRequest, res: Response) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email })
@@ -23,7 +23,7 @@ const loginUser = asyncHandler(async (req: AppRequest, res: Response) => {
   }
 })
 
-const registerUser = asyncHandler(async (req, res) => {
+export const registerUser: RequestHandler = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body
 
   const userExists = await User.findOne({ email })
@@ -123,7 +123,7 @@ const registerUser = asyncHandler(async (req, res) => {
 //   })
 // })
 
-const logoutUser = asyncHandler(async (req: AppRequest, res: Response) => {
+export const logoutUser: RequestHandler = asyncHandler(async (req: AppRequest, res: Response) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
@@ -133,4 +133,5 @@ const logoutUser = asyncHandler(async (req: AppRequest, res: Response) => {
   })
 })
 
-module.exports = { loginUser, registerUser, logoutUser }
+
+// module.exports = { loginUser, registerUser, logoutUser }

@@ -2,12 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "main": "server.js",
-  "type": "module",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server",
+    "start": "node dist/server.js",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
     "build": "tsc"
-
   },
   "keywords": [],
   "author": "",

@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken"
 import asyncHandler from "express-async-handler"
-import User from "../models/userModel.js"
-import type { Request, Response, NextFunction } from "express"
-import type { AppRequest } from "../Types/app-req.js"
+import User from "../models/userModel"
+import type { Request, Response, NextFunction, RequestHandler } from "express"
+import type { AppRequest } from "../Types/app-req"
 
-const protect = asyncHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
+export const protect: RequestHandler = asyncHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
   let token
 
   token = req.cookies.jwt
@@ -27,4 +27,4 @@ const protect = asyncHandler(async (req: AppRequest, res: Response, next: NextFu
   }
 })
 
-module.exports = { protect }
+

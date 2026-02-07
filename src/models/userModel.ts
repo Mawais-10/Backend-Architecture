@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose"
-import bcrypt from "bcryptjs"
+import bcrypt from "bcrypt"; 
 import expressAsyncHandler from "express-async-handler"
 
 
